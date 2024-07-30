@@ -20,11 +20,11 @@ async function getPostsData(limit, page = 1) {
 export default async function Posts({ searchParams }) {
   const limit = searchParams.limit ? searchParams.limit : 5;
   const posts = await getPostsData(limit);
-  const postList = posts.map(post => (
+  const postList = posts.map((post) => (
     <li key={post.id}>
       <Link href={"/posts/" + post.id}>
-      Post #{post.id}: {post.title}
-    </Link>
+        Post #{post.id}: {post.title}
+      </Link>
     </li>
   ));
   return (
