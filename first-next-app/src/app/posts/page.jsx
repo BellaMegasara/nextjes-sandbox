@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "next/post";
 
 // ------- FUNCTION TO FETCH POSTS DATA -------
 async function getPostsData(limit, page = 1) {
@@ -17,26 +17,21 @@ async function getPostsData(limit, page = 1) {
   return res.json();
 }
 
-// ------- POSTS COMPONENT -------
-export default async function Posts() {
-  // STATE/VAR
-  const posts = await getPostsData(5);
-
-  const postList = posts.map((post) => (
+export default async function Posts({ searchParams }) {
+  const limit = searchParams.limit ? searchParams.limit : 5;
+  const posts = await getPostsData(limit);
+  const postList = posts.map(post => (
     <li key={post.id}>
       <Link href={"/posts/" + post.id}>
-        Post #{post.id}: {post.title}
-      </Link>
+      Post #{post.id}: {post.title}
+    </Link>
     </li>
   ));
-
-  // FUNCTION
-
-  // RETURN
   return (
     <div className="Posts">
       <h1>Posts</h1>
       <ul>{postList}</ul>
+      <PostsLimit defaultLimit={limit} />
     </div>
   );
-} // ++ Update the NavBar to include this new /posts page route
+}
