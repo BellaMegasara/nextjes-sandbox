@@ -1,6 +1,7 @@
 import NavBar from "@/components/NavBar"; // see next slide
 import "./globals.css";
 import { Inter } from "next/font/google"; // supports google fonts
+import MainProvider from "../stores/mainStore";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,8 +16,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NavBar />
-        <main>{children}</main>
+        <MainProvider>
+          <NavBar />
+          <main>{children}</main>
+        </MainProvider>
       </body>
     </html>
   );
